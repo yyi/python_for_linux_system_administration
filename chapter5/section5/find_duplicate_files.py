@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#-*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 from __future__ import print_function
 import hashlib
 import sys
@@ -8,9 +8,24 @@ import fnmatch
 
 CHUNK_SIZE = 8192
 
+
+def is_file_match(filename, patterns):
+    for pattern in patterns:
+        if fnmatch.fnmatch(filename, pattern):
+            return True
+    return False
+
+
 def find_specific_files(root, patterns=['*'], exclude_dirs=[]):
-    # 该函数的实现参考 5.3.4 节
-    pass
+    for root, dirnames, filenames in os.walk(root):
+        for filename in filenames:
+            if is_file_match(filename, patterns):
+                yield os.path.join(root, filename)
+
+        for d in exclude_dirs:
+            if d in dirnames:
+                dirnames.remove(d)
+
 
 def get_chunk(filename):
     with open(filename) as f:
@@ -21,14 +36,16 @@ def get_chunk(filename):
             else:
                 yield chunk
 
+
 def get_file_checksum(filename):
     h = hashlib.md5()
     for chunk in get_chunk(filename):
         h.update(chunk)
     return h.hexdigest()
 
+
 def main():
-    sys.argv.append("")
+    sys.argv.append("/home/yyi/download")
     directory = sys.argv[1]
     if not os.path.isdir(directory):
         raise SystemExit("{0} is not a directory".format(directory))
@@ -40,6 +57,7 @@ def main():
             print('find duplicate file: {0} vs {1}'.format(record[checksum], item))
         else:
             record[checksum] = item
+
 
 if __name__ == '__main__':
     main()
