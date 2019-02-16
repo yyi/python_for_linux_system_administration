@@ -4,6 +4,7 @@ import glob
 
 import openpyxl
 
+
 def merge_xlsx_files(xlsx_files):
     wb = openpyxl.load_workbook(xlsx_files[0])
     ws = wb.active
@@ -18,13 +19,15 @@ def merge_xlsx_files(xlsx_files):
 
     return wb
 
+
 def get_all_xlsx_files(path):
     xlsx_files = glob.glob(os.path.join(path, '*.xlsx'))
     sorted(xlsx_files, key=str.lower)
     return xlsx_files
 
+
 def main():
-    xlsx_files = get_all_xlsx_files(os.path.expanduser('~lmx'))
+    xlsx_files = get_all_xlsx_files(os.path.join('../attaches'))
     wb = merge_xlsx_files(xlsx_files)
     wb.save('merged_form.xlsx')
 

@@ -1,6 +1,7 @@
 #!/usr/bin/python
-#-*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 import openpyxl
+
 
 def process_worksheet(sheet):
     avg_column = sheet.max_column + 1
@@ -19,11 +20,13 @@ def process_worksheet(sheet):
     sheet.cell(row=1, column=avg_column).value = 'avg'
     sheet.cell(row=1, column=sum_column).value = 'sum'
 
+
 def main():
-    wb = openpyxl.load_workbook('example.xlsx')
+    wb = openpyxl.load_workbook('../attaches/example.xlsx')
     sheet = wb.get_sheet_by_name('student')
     process_worksheet(sheet)
     wb.save('example_copy.xlsx')
+
 
 if __name__ == '__main__':
     main()

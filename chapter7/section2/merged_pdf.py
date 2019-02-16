@@ -10,7 +10,7 @@ def get_all_pdf_files(path):
 
 
 def main():
-    all_pdfs = get_all_pdf_files(os.path.expanduser('~lmx/'))
+    all_pdfs = get_all_pdf_files(os.path.join('../attaches'))
     if not all_pdfs:
         raise SystemExit('No pdf file found!')
 
@@ -26,6 +26,7 @@ def main():
 
     with open('merge-pdfs.pdf', 'wb') as f:
         merger.write(f)
+
 
 if __name__ == '__main__':
     main()
