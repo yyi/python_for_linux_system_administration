@@ -5,7 +5,7 @@ import os
 import shutil
 import tarfile
 import subprocess
-
+import zipfile
 
 def execute_cmd(cmd):
     p = subprocess.Popen(cmd,
@@ -27,7 +27,9 @@ def unpackage_mongo(package, package_dir):
     if os.path.exists(package_dir):
         shutil.rmtree(package_dir)
 
-    t = tarfile.open(package, 'r:gz')
+    # t = tarfile.open(package, 'r:gz')
+    # t.extractall('.')
+    t = zipfile.ZipFile(package)
     t.extractall('.')
 
     shutil.move(unpackage_dir, package_dir)
@@ -41,7 +43,7 @@ def create_datadir(data_dir):
 
 def format_mongod_command(package_dir, data_dir, logfile):
     mongod = os.path.join(package_dir, 'bin', 'mongod')
-    mongod_format = """{0} --fork --dbpath {1} --logpath {2}"""
+    mongod_format = """{0}  --dbpath {1} --logpath {2}"""
     return mongod_format.format(mongod, data_dir, logfile)
 
 
@@ -54,7 +56,7 @@ def start_mongod(cmd):
 
 
 def main():
-    package = 'mongodb-linux-x86_64-debian71-3.4.0.tgz'
+    package = 'mongodb.zip'
     cur_dir = os.path.abspath('.')
     package_dir = os.path.join(cur_dir, 'mongo')
     data_dir = os.path.join(cur_dir, 'mongodata')
