@@ -1,6 +1,7 @@
 from __future__ import print_function
 from socket import *
 
+
 def conn_scan(host, port):
     conn = socket(AF_INET, SOCK_STREAM)
     try:
@@ -11,10 +12,12 @@ def conn_scan(host, port):
     finally:
         conn.close()
 
+
 def main():
-    host = "10.166.224.14"
+    host = "192.168.1.100"
     for port in range(20, 5000):
         conn_scan(host, port)
+
 
 if __name__ == '__main__':
     main()

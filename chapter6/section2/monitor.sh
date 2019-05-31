@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cpu_idle=$(top -n2 | grep 'Cpu' | tail -n 1 | awk '{ print $8}')
 cpu_usage=$(echo "100 - $cpu_idle" | bc)
 

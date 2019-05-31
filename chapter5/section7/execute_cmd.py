@@ -1,5 +1,6 @@
 import subprocess
 
+
 def execute_cmd(cmd):
     p = subprocess.Popen(cmd,
                          shell=True,
@@ -10,3 +11,7 @@ def execute_cmd(cmd):
     if p.returncode != 0:
         return p.returncode, stderr
     return p.returncode, stdout
+
+
+if __name__ == '__main__':
+    execute_cmd('dir')

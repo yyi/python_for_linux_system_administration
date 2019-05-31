@@ -1,9 +1,10 @@
 from fabric.api import run, sudo
 from fabric.api import env
 
-env.hosts= ['10.166.224.14', '10.166.224.14']
-env.port= 2902
-env.user='lmx'
+env.hosts= ['yyifamily.ml']
+env.port= 22
+env.user='pi'
+env.password='yangyi'
 
 def hostname():
     run('hostname')

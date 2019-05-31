@@ -2,11 +2,15 @@
 #-*- coding: UTF-8 -*-
 import os
 import fnmatch
+import find_specific_files
 
-images = ['*.jpg', '*.jpeg', '*.png', '*.tif', '*.tiff']
+
+
+images = ['*.jpg','*.json', '*.jpeg', '*.png', '*.tif', '*.tiff']
 matches = []
-
-for root, dirnames, filenames in os.walk(os.path.expanduser("~lmx/t")):
+for file in find_specific_files.find_specific_files(os.path.expanduser('~'),images):
+    print (file)
+for root, dirnames, filenames in os.walk(os.path.expanduser("~/abc")):
     for extensions in images:
         for filename in fnmatch.filter(filenames, extensions):
             matches.append(os.path.join(root, filename))
