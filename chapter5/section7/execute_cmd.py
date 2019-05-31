@@ -14,4 +14,5 @@ def execute_cmd(cmd):
 
 
 if __name__ == '__main__':
-    execute_cmd('dir')
+    returncode, out = execute_cmd('ls')
+    print("retruncode:{0},out:{1}".format(returncode, out))
